@@ -33,6 +33,9 @@ class LocationViewController: UIViewController {
     /// "位置情報を取得"ボタンを押下した際、位置情報をラベルに反映する
     /// - Parameter sender: "位置情報を取得"ボタン
     @IBAction func getLocationInfo(_ sender: Any) {
+        //ここのrange1,range2という変数で調整してみてください
+        var range1 = 5.0
+        var range2 = 5.0
         locationManager?.startUpdatingLocation()
         // マネージャの設定
         let status = CLLocationManager.authorizationStatus()
@@ -40,13 +43,18 @@ class LocationViewController: UIViewController {
             showAlert()
             print("えら-")
         } else if status == .authorizedWhenInUse {
-            self.latitude.text = latitudeNow
-            self.longitude.text = longitudeNow
-            print("おけい")
+            //ここで演算子を使い、色々な調整ができると思います。
+            if Double(latitudeNow ?? "")! >= range1 && Double(longitudeNow ?? "")! >= range2 {
+                self.latitude.text = latitudeNow
+                self.longitude.text = longitudeNow
+                print("成功")
+            }else {
+                print("失敗")
+            }
             print(latitude.text)
             print(longitude.text)
+         
         }
-        Double(latitude.text) && Double()
     }
     
     /// "クリア"ボタンを押下した際、ラベルを初期化する
